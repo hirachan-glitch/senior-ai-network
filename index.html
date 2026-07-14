@@ -8,7 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js');</script>
+<script>
+document.documentElement.classList.add('js');
+/* 保存された文字サイズを先に適用（ちらつき防止） */
+(function(){try{var s=localStorage.getItem('fs');if(s)document.documentElement.style.fontSize=s+'px';}catch(e){}})();
+</script>
 <style>
   :root{
     --deep:#12372a;
@@ -32,7 +36,7 @@
     font-family:var(--sans);
     color:var(--ink);
     background:var(--bg);
-    font-size:21px;
+    font-size:1.13rem;
     line-height:2;
     overflow-x:hidden;
   }
@@ -74,8 +78,11 @@
     transition:background .3s ease;
   }
   .header-inner{
-    max-width:1160px;margin:0 auto;padding:14px 24px;
-    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    max-width:1160px;margin:0 auto;padding:12px 24px;
+    display:flex;flex-direction:column;align-items:stretch;gap:8px;
+  }
+  .header-top{
+    display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;
   }
   .logo{
     font-family:var(--serif);font-size:1.3rem;font-weight:700;
@@ -96,6 +103,28 @@
     transition:transform .3s ease;
   }
   nav a:hover::after{transform:scaleX(1);}
+
+  /* ===== 文字サイズ切り替え（サイズ固定・文字サイズ変更の影響を受けない） ===== */
+  .font-sizer{
+    display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  }
+  .fs-label{
+    color:#e8d5b0;font-size:13px;letter-spacing:.06em;font-weight:700;
+    margin-right:2px;white-space:nowrap;
+  }
+  .fs-btn{
+    font-family:var(--sans);cursor:pointer;
+    background:transparent;color:#f2efe6;
+    border:1.5px solid rgba(255,255,255,.55);
+    border-radius:999px;padding:6px 13px;font-size:14px;font-weight:700;line-height:1;
+    transition:background .2s ease,border-color .2s ease,color .2s ease;
+  }
+  .fs-btn:hover{border-color:#fff;background:rgba(255,255,255,.14);}
+  .fs-btn.on{
+    background:linear-gradient(135deg,#d8b06a,#b98d43);
+    border-color:transparent;color:#fff;box-shadow:0 3px 10px rgba(201,160,90,.4);
+  }
+  .fs-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
 
   /* ===== ヒーロー ===== */
   .hero{
@@ -524,7 +553,16 @@
 
 <header>
   <div class="header-inner">
-    <a class="logo" href="#top">シニアAIネットワーク<small>SENIOR AI NETWORK</small></a>
+    <div class="header-top">
+      <a class="logo" href="#top">シニアAIネットワーク<small>SENIOR AI NETWORK</small></a>
+      <div class="font-sizer" role="group" aria-label="文字サイズを変える">
+        <span class="fs-label">文字サイズ</span>
+        <button type="button" class="fs-btn" data-fs="15" aria-pressed="false">小</button>
+        <button type="button" class="fs-btn" data-fs="18.5" aria-pressed="true">標準</button>
+        <button type="button" class="fs-btn" data-fs="22" aria-pressed="false">大</button>
+        <button type="button" class="fs-btn" data-fs="26" aria-pressed="false">特大</button>
+      </div>
+    </div>
     <nav>
       <a href="#about">理念と憲章</a>
       <a href="#activities">活動内容</a>
@@ -972,6 +1010,26 @@
       if (t) { ev.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  // 文字サイズ切り替え（小・標準・大・特大）
+  (function () {
+    const KEY = 'fs';
+    const DEFAULT = '18.5';
+    const btns = Array.from(document.querySelectorAll('.fs-btn'));
+    function apply(v, save) {
+      document.documentElement.style.fontSize = v + 'px';
+      btns.forEach(b => {
+        const on = b.dataset.fs === String(v);
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      if (save) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    }
+    let cur = null;
+    try { cur = localStorage.getItem(KEY); } catch (e) {}
+    apply(cur || DEFAULT, false);
+    btns.forEach(b => b.addEventListener('click', () => apply(b.dataset.fs, true)));
+  })();
 </script>
 
 </body>
