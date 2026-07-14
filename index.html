@@ -18,8 +18,8 @@
     --gold:#c9a05a;
     --gold-light:#e8d5b0;
     --gold-pale:#faf3e5;
-    --ink:#26302b;
-    --gray:#5f6b64;
+    --ink:#212a25;
+    --gray:#3f4842;
     --bg:#fcfaf4;
     --card:#ffffff;
     --line:#e2ddd0;
@@ -27,12 +27,12 @@
     --sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-padding-top:88px;}
+  html{scroll-padding-top:88px;font-size:17px;}
   body{
     font-family:var(--sans);
     color:var(--ink);
     background:var(--bg);
-    font-size:18px;
+    font-size:19.5px;
     line-height:2;
     overflow-x:hidden;
   }
@@ -467,32 +467,53 @@
   #toTop.show{opacity:1;pointer-events:auto;}
   #toTop:hover{transform:translateY(-3px);}
 
-  /* ===== シニア向け 可読性アップ（細かい文字を少し大きく） ===== */
-  .section-label{font-size:.9rem;}
-  nav a{font-size:.96rem;}
-  .card p{font-size:1.02rem;}
-  .platform p{font-size:1rem;}
-  .platform .tag{font-size:.82rem;}
-  .phi-card p, .phi-card li{font-size:1.02rem;}
-  .principles li{font-size:1.02rem;}
-  .merit p{font-size:.98rem;line-height:1.85;}
-  .tool .role{font-size:.88rem;}
-  .tool p{font-size:.98rem;}
-  .dl-list .dl-body small{font-size:.96rem;}
-  .coming{font-size:.88rem;}
-  .steps li span{font-size:1rem;}
-  .fig-lead{font-size:1.04rem;}
-  .figure figcaption{font-size:1rem;}
-  .cta .note{font-size:.96rem;}
-  .foot-nav a{font-size:.98rem;}
-  .copy{font-size:.92rem;}
-  .foot-logo small{font-size:.72rem;}
-  .logo small{font-size:.7rem;}
+  /* ===== シニア向け 可読性アップ（文字を大きく・色を濃く） ===== */
+  /* --- 文字サイズを大きく --- */
+  .lead{font-size:1.14rem;}
+  .section-label{font-size:.95rem;}
+  nav a{font-size:1rem;}
+  .card p{font-size:1.08rem;}
+  .card h3{font-size:1.32rem;}
+  .platform p{font-size:1.06rem;}
+  .platform .tag{font-size:.9rem;}
+  .phi-card p, .phi-card li{font-size:1.08rem;}
+  .principles li{font-size:1.08rem;}
+  .principles li strong{font-size:1.12rem;}
+  .merit p{font-size:1.04rem;line-height:1.85;}
+  .merit h4{font-size:1.1rem;}
+  .tool .role{font-size:.94rem;}
+  .tool p{font-size:1.04rem;}
+  .dl-list .dl-body strong{font-size:1.16rem;}
+  .dl-list .dl-body small{font-size:1.04rem;}
+  .coming{font-size:.94rem;}
+  .steps li strong{font-size:1.18rem;}
+  .steps li span{font-size:1.08rem;}
+  .fig-lead{font-size:1.12rem;}
+  .figure figcaption{font-size:1.08rem;}
+  .cta p{font-size:1.18rem;}
+  .cta .note{font-size:1.02rem;}
+  .foot-nav a{font-size:1.04rem;}
+  .copy{font-size:1rem;}
+  .foot-logo small{font-size:.78rem;}
+  .logo small{font-size:.74rem;}
+  /* --- 色コントラストUP（明背景は濃く／暗背景は明るく） --- */
+  .section-label{color:#a06f1c;}               /* 明背景のゴールドを濃く */
+  .philosophy .section-label{color:#e0bd77;}   /* 暗背景では明るいゴールドを保つ */
+  .tag{color:#a06f1c;border-color:#d9c08a;}
+  .card p, .platform p, .merit p, .tool p, .steps li span,
+  .dl-list .dl-body small, .figure figcaption, .fig-lead, .lead{color:#333c36;}
+  .charter-sub{color:#e8f0ea;}                 /* 暗背景の薄い説明文を明るく */
+  .philosophy .lead{color:#e2ece5;}
+  .cta .note{color:#dbe7de;}
+  footer{color:#e0eae2;}
+  .foot-nav a{color:#e0eae2;}
+  .copy{color:#bcccc2;}
+  .card .go{color:#255c40;}                    /* リンクの緑を少し濃く */
 
   @media (max-width:640px){
-    body{font-size:16.5px;}
+    body{font-size:18px;}
     section{padding:72px 18px;}
-    nav a{font-size:.8rem;padding:8px 9px;}
+    nav a{font-size:.92rem;padding:8px 10px;}
     .story{padding:40px 26px;}
     .principles li{padding:22px 20px 22px 72px;}
     .hero{min-height:88vh;}
