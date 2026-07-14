@@ -542,10 +542,14 @@ document.documentElement.classList.add('js');
   @media (max-width:640px){
     body{font-size:19px;}
     section{padding:72px 18px;}
-    nav a{font-size:.92rem;padding:8px 10px;}
+    .header-top{justify-content:center;gap:8px 12px;}
+    nav{justify-content:center;gap:0 2px;}
+    nav a{font-size:.92rem;padding:7px 8px;}
+    .fs-label{display:none;}          /* スマホでは「文字サイズ」ラベルを省いてヘッダーを低く */
+    .fs-btn{padding:6px 11px;}
     .story{padding:40px 26px;}
     .principles li{padding:22px 20px 22px 72px;}
-    .hero{min-height:88vh;}
+    .hero{min-height:100vh;}
   }
 </style>
 </head>
@@ -1011,6 +1015,15 @@ document.documentElement.classList.add('js');
     });
   });
 
+  // 固定ヘッダーの高さ分だけ、ヒーローの上に余白を確保（見出しが隠れないように）
+  function fitHero() {
+    const hd = document.querySelector('header');
+    const hero = document.querySelector('.hero');
+    if (hd && hero) { hero.style.paddingTop = (hd.offsetHeight + 28) + 'px'; }
+  }
+  window.addEventListener('load', fitHero);
+  window.addEventListener('resize', fitHero);
+
   // 文字サイズ切り替え（小・標準・大・特大）
   (function () {
     const KEY = 'fs';
@@ -1024,6 +1037,7 @@ document.documentElement.classList.add('js');
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
       if (save) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+      fitHero();  // 文字サイズでヘッダー高さが変わるため上余白を再計算
     }
     let cur = null;
     try { cur = localStorage.getItem(KEY); } catch (e) {}
